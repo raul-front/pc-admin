@@ -4,7 +4,7 @@
  * @Date: 2021-04-02 14:46:34
  *
  * 通过filter()方法转换
- * eg: filter(0, 'cardType'), 结果为身份证
+ * eg: filter('cardType', 0) 结果为身份证
  */
 
 // 证件类型

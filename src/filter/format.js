@@ -4,7 +4,7 @@
  * @Date: 2021-04-02 14:46:40
  *
  * 通过format()方法转换
- * eg: format(new Date(), 'date'), 结果为当前日期
+ * eg: format('date', new Date()) 结果为当前日期
  */
 import dayjs from 'dayjs'
 
