@@ -63,7 +63,7 @@ const whiteList = [
 // 权限判断
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (storage.getSignature()) {
+  if (storage.getToken()) {
     if (to.name === 'Login') {
       next({ path: '/' })
       NProgress.done()

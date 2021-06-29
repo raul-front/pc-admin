@@ -45,10 +45,10 @@ export default {
     const router = useRouter()
 
     const menuCollapsed = computed(() => {
-      return store.state.user.menuCollapsed
+      return store.state.lisa.menuCollapsed
     })
     const handleChangeCollapsed = () => {
-      store.commit('user/SET_MENU_COLLAPSED', !menuCollapsed.value)
+      store.commit('lisa/SET_MENU_COLLAPSED', !menuCollapsed.value)
     }
 
     const userInfo = computed(() => {

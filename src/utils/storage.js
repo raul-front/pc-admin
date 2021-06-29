@@ -4,7 +4,6 @@
  * @Date: 2021-04-02 14:00:14
  */
 
-const SIGNATURE = 'admin-token'
 const TOKEN = 'token'
 const USERINFO = 'userinfo'
 const ADMININFO = 'admininfo'
@@ -21,17 +20,6 @@ export default {
   },
   rmToken: () => {
     window.localStorage.removeItem(TOKEN)
-  },
-
-  // signature
-  setSignature: signature => {
-    window.localStorage.setItem(SIGNATURE, signature)
-  },
-  getSignature: () => {
-    return window.localStorage.getItem(SIGNATURE)
-  },
-  rmSignature: () => {
-    window.localStorage.removeItem(SIGNATURE)
   },
 
   // userinfo

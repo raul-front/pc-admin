@@ -23,7 +23,7 @@ export default {
   },
   setup () {
     const store = useStore()
-    store.commit('user/SET_INITDATA_FROM_STORAGE')
+    store.dispatch('user/syncSystemInitDataFromStorage')
     store.dispatch('user/syncSystemInitData')
   },
 }

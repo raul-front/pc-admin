@@ -130,7 +130,7 @@ export default {
     onMounted(() => {
     })
     const menuCollapsed = computed(() => {
-      return store.state.user.menuCollapsed
+      return store.state.lisa.menuCollapsed
     })
     const activeMenu = computed(() => {
       return route.name
