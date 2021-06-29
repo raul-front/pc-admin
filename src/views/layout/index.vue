@@ -24,7 +24,7 @@ export default {
   setup () {
     const store = useStore()
     store.dispatch('user/syncSystemInitDataFromStorage')
-    store.dispatch('user/syncSystemInitData')
+    store.dispatch('user/syncSystemInitDataFromApi')
   },
 }
 </script>

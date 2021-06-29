@@ -18,7 +18,7 @@ export const user = {
   namespaced: true,
   state,
   actions: {
-    syncSystemInitData ({ commit }) {
+    syncSystemInitDataFromApi ({ commit }) {
       const apis = []
       commit('SET_FULL_LOADING', true)
       Promise.all(apis).then(() => {
