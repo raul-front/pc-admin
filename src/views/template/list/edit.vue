@@ -65,7 +65,7 @@ export default {
   },
   setup () {
     const router = useRouter()
-    let defaultForm = {
+    const defaultForm = {
       name: '',
       phone: '',
       email: '',
@@ -105,9 +105,9 @@ export default {
     }
     const handleGetDetail = (id) => {
       return getUser(id).then(res => {
-        // TODO: 处理成表单数据
+        // TODO: 处理成表单数据，结构为defaultForm
         const data = res.data
-        defaultForm = {
+        return {
           name: data.name,
           phone: '',
           email: '',
@@ -119,7 +119,6 @@ export default {
           avatar: '',
           photo: [],
         }
-        return defaultForm
       })
     }
     const handleEditSuccess = () => {
