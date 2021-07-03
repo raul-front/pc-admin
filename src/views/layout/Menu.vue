@@ -20,7 +20,7 @@
           <template v-if="item.children">
             <ul class="submenu-wrap" :style="`height: ${item.children.length * 40}px;`">
               <li v-for="submenuItem in item.children" :key="submenuItem.name"
-                class="submenu-item" :class="{'submenu-item_active': submenuItem.name === activeMenu}"
+                class="submenu-item" :class="{'submenu-item_active': activeMenu.startsWith(submenuItem.name)}"
                 @click="handleChangeSubmenu(submenuItem)">
                 <i class="iconfont icon-dian submenu-item-icon"></i>
                 <span class="submenu-item-label">{{submenuItem.title}}</span>
@@ -106,6 +106,7 @@ const list = [
     isOpen: false,
     children: [
       { title: '列表页', name: 'Template_List' },
+      { title: 'svg', name: 'Template_Svg' },
     ],
   },
   // {

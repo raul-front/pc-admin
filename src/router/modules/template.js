@@ -18,6 +18,15 @@ export default {
         { path: 'update/:id', name: 'Template_List_Update', component: () => import('@/views/template/list/edit.vue'), meta: { title: '模板_Update' } },
       ],
     },
+    {
+      path: 'svg',
+      meta: { title: 'svg绘图', firstPageName: 'Template_Svg' },
+      component: () => import('@/views/template/svg/index.vue'),
+      children: [
+        { path: 'base', name: 'Template_Svg', component: () => import('@/views/template/svg/base.vue'), meta: { isfirstPage: true, title: 'svg 基础', showRouteTabs: true, showIntro: true } },
+        { path: 'demo', name: 'Template_Svg_Demo', component: () => import('@/views/template/svg/demo.vue'), meta: { title: 'svg 示例', showRouteTabs: true } },
+      ],
+    },
     // {
     //   path: 'echarts',
     //   meta: { title: 'Echarts图表', firstPageName: 'TemplateEcharts' },
