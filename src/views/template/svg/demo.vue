@@ -1,20 +1,34 @@
 <template>
   <div class="component-flex-page template-svg-demo">
-    <Test></Test>
-    <svg width="30" height="30" style="color: red">
-      <use href="#more"></use>
-    </svg>
+    Loading
+    <Loading width="50" hieght="50">加载中...</Loading>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    FlyBox
+    <fly-box style="width: 300px; height: 200px; background: #333;">
+      xxx
+    </fly-box>
+    <fly-box style="width: 500px; height: 300px; background: #333;">
+      xxx
+    </fly-box>
   </div>
 </template>
 
 <script>
 import { onMounted } from 'vue'
-import Test from './Test.vue'
+import Loading from './Loading.vue'
+import FlyBox from './FlyBox.vue'
 
 export default {
   props: {},
   components: {
-    Test,
+    Loading,
+    FlyBox,
   },
   setup (props, { emit }) {
     onMounted(() => {
