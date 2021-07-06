@@ -21,8 +21,8 @@
 
 <script>
 import { onMounted } from 'vue'
-import Loading from './Loading.vue'
-import FlyBox from './FlyBox.vue'
+import Loading from './components/Loading.vue'
+import FlyBox from './components/FlyBox.vue'
 
 export default {
   props: {},

@@ -29,9 +29,9 @@
 
 <script>
 import { onMounted } from 'vue'
-import Test from './Test.vue'
-import Icon from './Icon.vue'
-import SvgAnimation from './SvgAnimation/SvgAnimation.vue'
+import Test from './components/Test.vue'
+import Icon from './components/Icon.vue'
+import SvgAnimation from './components/SvgAnimation.vue'
 
 export default {
   props: {},

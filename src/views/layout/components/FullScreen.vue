@@ -1,7 +1,7 @@
 <template>
   <div class="page-full-screen-btn" v-if="showFullScreenBtn" @click="handleChange">
     <el-tooltip effect="dark" :content="text" placement="bottom">
-      <i :class="['iconfont', isFullScreen ? 'icon-fullscreen-exit' : 'icon-fullscreen']"></i>
+      <i :class="['lisafont', isFullScreen ? 'icon-fullscreen-exit' : 'icon-fullscreen']"></i>
     </el-tooltip>
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
 </script>
 <style lang="scss">
 .page-full-screen-btn{
-  .iconfont{
+  .lisafont{
     height: 100%;
     @include flex-center();
     font-size: 16px;

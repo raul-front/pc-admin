@@ -5,14 +5,6 @@
     url('//at.alicdn.com/t/font_2550778_cdxna6cc6vv.ttf?t=1622636627890') format('truetype');
 }
 
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .icon-team:before {
   content: "\e7af";
 }

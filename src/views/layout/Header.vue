@@ -2,7 +2,7 @@
   <div class="layout-header">
     <div class="header-left">
       <div class="menu-collapsed" @click="handleChangeCollapsed">
-        <i :class="['iconfont', menuCollapsed ? 'icon-outdent' : 'icon-indent']" ></i>
+        <i :class="['lisafont', menuCollapsed ? 'icon-outdent' : 'icon-indent']" ></i>
       </div>
     </div>
     <div class="header-right">
@@ -16,10 +16,10 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="profile">
-              <i class="iconfont icon-user"></i>个人中心
+              <i class="lisafont icon-user"></i>个人中心
             </el-dropdown-item>
             <el-dropdown-item command="logout" divided>
-              <i class="iconfont icon-user"></i>退出登录
+              <i class="lisafont icon-user"></i>退出登录
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -99,7 +99,7 @@ export default {
       height: 100%;
       cursor: pointer;
       @include flex-center();
-      .iconfont{
+      .lisafont{
         font-size: 18px;
       }
       &:hover{

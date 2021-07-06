@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style lang="scss">
+// 需要自己添加，svg.js中自动创建的style中写的没有起作用
 .svgfont {
   display: inline-block;
   width: 1em;

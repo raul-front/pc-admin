@@ -20,6 +20,5 @@ export default {
       tabList,
     }
   },
-
 }
 </script>
