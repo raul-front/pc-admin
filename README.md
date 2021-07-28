@@ -7,10 +7,10 @@
 1. 拉取代码
 ```
 git clone git@github.com:raul-front/pc-admin.git
-cd pc-admin
 ```
 2. 拉取子仓库代码
 ```
+cd pc-admin
 make initModule
 ```
 3. 安装依赖

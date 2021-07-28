@@ -3,9 +3,9 @@ BUCKET=raul-admin
 # 初始化submodule
 initModule:
 	git submodule init
-	git submodule update
-	cd src/lisa
-	git checkout master
+	git submodule update; \
+	cd src/lisa; \
+	git checkout master; \
 	cd ../../
 
 # 更新submodule

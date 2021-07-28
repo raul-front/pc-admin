@@ -1,7 +1,6 @@
 
 export default (app) => {
   const lisaDirectives = import.meta.globEager('../lisa/directive/*.js')
-  console.log('lisaDirectives', lisaDirectives)
   Object.keys(lisaDirectives).forEach(path => {
     const directiveName = path.replace(/(.*\/)*([^.]+).*/ig, '$2')
     app.directive(directiveName, lisaDirectives[path].default)

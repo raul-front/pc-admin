@@ -96,7 +96,7 @@ const list = [
     children: [
       { title: '部门', name: 'Account_Department' },
       { title: '员工', name: 'Account_Employee' },
-      { title: '权限', name: 'Account_Position' },
+      { title: '权限', name: 'Account_Access' },
     ],
   },
   {

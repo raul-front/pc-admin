@@ -28,3 +28,9 @@ export const employeeStatusData = {
   ENABLE: '正常',
   default: '',
 }
+export const accessTypeData = {
+  1: '目录',
+  2: '菜单',
+  3: '按钮',
+  default: '',
+}
