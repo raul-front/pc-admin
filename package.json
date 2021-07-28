@@ -2,7 +2,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "test": "vite build --mode test",
+    "build:test": "vite build --mode test",
     "build": "vite build",
     "serve": "vite preview"
   },
