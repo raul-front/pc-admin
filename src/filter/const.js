@@ -34,3 +34,10 @@ export const accessTypeData = {
   3: '按钮',
   default: '',
 }
+
+// 启用停用状态
+export const useStopStatusData = {
+  1: '启用',
+  2: '停用',
+  default: '',
+}

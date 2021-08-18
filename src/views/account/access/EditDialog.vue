@@ -22,7 +22,7 @@
       </el-form-item>
       <el-form-item label="权限标识：" prop="tag">
         <el-input v-model.trim="editForm.tag" placeholder="请填写权限标识">
-          <template #prepend>{{}}_</template>
+          <template #prepend>{{editForm.parentValue}}_</template>
         </el-input>
       </el-form-item>
     </el-form>
@@ -116,7 +116,6 @@ export default {
     } = useTableEditDialog({ props, emit, defaultForm, handleInitUpdateData, handleAddData, handleUpdateData, handleGetDetail })
 
     const handleNodeClick = (item) => {
-      console.log('vv', item.value)
       editForm.value.parentValue = item.value
       editForm.value.parentLabel = item.label
     }
@@ -144,35 +143,35 @@ export default {
         children: [
           {
             label: '部门',
-            value: 'Department',
+            value: 'Account_Department',
             children: [{
               label: '添加',
-              value: 'Add',
+              value: 'Account_Department_Add',
             }, {
               label: '修改',
-              value: 'Update',
+              value: 'Account_Department_Update',
             }],
           },
           {
             label: '员工',
-            value: 'Employee',
+            value: 'Account_Employee',
             children: [{
               label: '添加',
-              value: 'Add',
+              value: 'Account_Employee_Add',
             }, {
               label: '修改',
-              value: 'Update',
+              value: 'Account_Employee_Update',
             }],
           },
           {
             label: '权限',
-            value: 'Access',
+            value: 'Account_Access',
             children: [{
               label: '添加',
-              value: 'Add',
+              value: 'Account_Access_Add',
             }, {
               label: '修改',
-              value: 'Update',
+              value: 'Account_Access_Update',
             }],
           },
         ],
@@ -181,10 +180,10 @@ export default {
         value: 'Template',
         children: [{
           label: '列表页',
-          value: 'List',
+          value: 'Template_List',
           children: [{
             label: '添加',
-            value: 'Add',
+            value: 'Template_List_Add',
           }],
         }],
       }],

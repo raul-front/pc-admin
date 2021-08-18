@@ -1,5 +1,5 @@
 <template>
-  <div class="component-flex-page template-list-list" ref="componentFlexPageRef">
+  <div class="component-flex-page account-department-list" ref="componentFlexPageRef">
     <r-table :total="tableData.tableTotal" ref="componentFlexTableRef">
       <template #handleUpLeftButtons>
         <el-form :inline="true">
