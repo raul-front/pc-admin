@@ -65,7 +65,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
       }).then(_ => {
-        storage.rmSignature()
+        storage.rmToken()
         router.push({ name: 'Login' })
       }).catch(_ => {})
     }

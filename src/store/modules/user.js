@@ -64,5 +64,20 @@ export const user = {
     SET_SYSTEM_INITDATA_FROM_API (state, data) {
       console.log('SET_SYSTEM_INITDATA_FROM_API')
     },
+
+    setLoginInfo (state, { token, user }) {
+      const userInfo = {
+        id: user._id || 0,
+        isAdmin: user.base_position === 'ADMIN',
+        name: user.name || '',
+        phone: user.phone || '',
+        avatar: user.custome_avatar || user.avatar || config.defaultAvatar,
+      }
+      state.userInfo = userInfo
+      storage.setUserInfo(userInfo)
+
+      state.token = token
+      storage.setToken(token)
+    },
   },
 }

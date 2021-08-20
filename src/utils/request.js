@@ -5,7 +5,7 @@
  */
 
 import axios from 'axios'
-// import store from 'store'
+import { useStore } from 'vuex'
 import config from '@/config'
 import storage from 'utils/storage'
 import { ElNotification } from 'element-plus'
@@ -20,13 +20,13 @@ const request = axios.create({
 
 // 不需要验证token的接口白名单
 const noAuthWhiteList = [
-  'account/login',
+  'login',
 ]
 
 // 请求拦截器
 request.interceptors.request.use(config => {
-  // console.log('store', store.state.user.token)
-  const token = 'xxx'
+  const token = storage.getToken()
+  console.log('token', token)
   if (token) {
     config.headers.Token = token
   } else {
@@ -68,8 +68,18 @@ request.interceptors.response.use(response => {
 })
 
 export const toLogin = () => {
-  ElNotification.error({ title: '错误提示', message: '登录信息已过期，请重新登录' })
+  console.log('toLogin')
+  if (storage.getToLoginFlag()) {
+    return
+  }
+  const hash = window.location.hash
+  if (hash !== '#/login') {
+    const path = hash.slice(1)
+    storage.setLocationHref(path)
+  }
   storage.rmToken()
+  storage.setToLoginFlag()
+  ElNotification.error({ title: '错误提示', message: '登录信息已过期，请重新登录' })
   window.location.href = '/#/login'
 }
 

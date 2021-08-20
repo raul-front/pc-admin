@@ -12,7 +12,7 @@ const ENV = import.meta.env.MODE
 const development = {
   env: 'dev',
   // baseUrl: 'https://dev-api.xxx.com',
-  baseUrl: 'api',
+  baseUrl: 'devApi',
   debug: true,
 }
 // 测试版

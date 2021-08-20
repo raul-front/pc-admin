@@ -9,6 +9,8 @@ const USERINFO = 'userinfo'
 const ADMININFO = 'admininfo'
 const MENUCOLLAPSED = 'menu-collapsed'
 const PAGE = 'page'
+const HREF = 'location_href'
+const TOLOGINFLAG = 'tologin_flag'
 
 export default {
   // token
@@ -66,5 +68,26 @@ export default {
   },
   rmPageOption: () => {
     window.sessionStorage.removeItem(PAGE)
+  },
+
+  // location href
+  setLocationHref: (href) => {
+    return window.localStorage.setItem(HREF, href)
+  },
+  getLocationHref: () => {
+    return window.localStorage.getItem(HREF)
+  },
+  rmLocationHref: () => {
+    window.localStorage.removeItem(HREF)
+  },
+
+  setToLoginFlag: () => {
+    window.localStorage.setItem(TOLOGINFLAG, true)
+  },
+  getToLoginFlag: () => {
+    return window.localStorage.getItem(TOLOGINFLAG)
+  },
+  rmToLoginFlag: () => {
+    return window.localStorage.removeItem(TOLOGINFLAG)
   },
 }

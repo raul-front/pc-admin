@@ -1,17 +1,58 @@
 <template>
   <div class="component-flex-page login">
     login page
+    <div>
+      <el-button @click="handleLogin">登录</el-button>
+    </div>
   </div>
 </template>
 
 <script>
 import storage from 'utils/storage'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 // import { listLoginConfig, getLoginCode, loginByPhone, wxLogin, bindWebapp, checkBindMp } from 'api/account'
+import { login } from 'api/access'
 import { validatePhone } from 'lisa/utils/validate'
 import config from '@/config'
 
 export default {
   name: 'login',
+  setup () {
+    const store = useStore()
+    const router = useRouter()
+
+    const toHome = () => {
+      // 清空toLogin标记
+      storage.rmToLoginFlag()
+      const path = storage.getLocationHref()
+      console.log('path', path)
+      if (path) {
+        storage.rmLocationHref()
+        router.push(path)
+      } else {
+        console.log('aaa')
+        // router.push({ name: 'Home' })
+        router.push('/')
+      }
+    }
+
+    const handleLogin = () => {
+      const data = {
+        phone: '18919015125',
+        password: '123456',
+      }
+      login(data).then(res => {
+        store.commit('user/setLoginInfo', res)
+        toHome()
+      }).catch(_ => {})
+    }
+
+    return {
+      handleLogin,
+    }
+  },
   data () {
     return {
       id: 0,
@@ -118,18 +159,6 @@ export default {
       })
     },
 
-    checkBindMp (n) {
-      if (n > 0) {
-        checkBindMp().then((res) => {
-          if (res.is_bind) {
-            this.toHome()
-            return
-          }
-          this.checkBindMp(n - 1)
-        }).catch(_ => {})
-      }
-    },
-
     // 微信登录
     wxLogin (code) {
       wxLogin({ code: code }).then(res => {
@@ -154,19 +183,6 @@ export default {
         this.$store.commit('setBindInfo', res)
         this.toHome()
       })
-    },
-
-    toHome () {
-      // 清空toLogin标记
-      storage.rmToLoginFlag()
-
-      const path = storage.getLocationHref()
-      if (path) {
-        storage.rmLocationHref()
-        this.$router.push(path).catch(() => {})
-      } else {
-        this.$router.push({ name: 'Home' }).catch(() => {})
-      }
     },
 
     getCode () {

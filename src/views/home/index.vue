@@ -8,9 +8,15 @@
 </template>
 <script>
 import { defineComponent, ref, watch } from 'vue'
+import { listDepartment } from 'api/account'
 
 export default defineComponent({
   setup () {
+    console.log('home')
+    listDepartment().then(res => {
+      console.log('res', res)
+    })
+
     const selectedKeys = ref(['1'])
     const openKeys = ref(['sub1'])
 
