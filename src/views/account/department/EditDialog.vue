@@ -4,10 +4,20 @@
       <el-form-item label="部门名称：" prop="name">
         <el-input v-model.trim="editForm.name" placeholder="请填写部门名称"></el-input>
       </el-form-item>
+      sss-{{editForm.parentId}}
       <el-form-item label="上级部门：" prop="parentLabel">
-        <el-select v-model="editForm.parentLabel" placeholder="请选择">
+        <el-select v-model="editForm.parentLabel"
+          style="width: 100%;"
+          clearable placeholder="请选择"
+          @clear="handleClearParent">
           <el-option value="null">
-            <el-tree :data="treeData" @node-click="handleNodeClick"></el-tree>
+            <el-tree :data="treeData"
+              ref="treeRef"
+              highlight-current
+              node-key="id"
+              :expand-on-click-node="false"
+              @node-click="handleNodeClick"></el-tree>
+              <!-- :current-node-key="editForm.parentId" -->
           </el-option>
         </el-select>
       </el-form-item>
@@ -31,7 +41,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import useTableEditDialog from 'lisa/hooks/useTableEditDialog'
 import { addDepartment, updateDepartment } from 'api/account'
@@ -48,6 +58,7 @@ export default {
   setup (props, { emit }) {
     const store = useStore()
 
+    const treeRef = ref(null)
     const defaultForm = {
       action: 'add',
       name: '',
@@ -92,7 +103,18 @@ export default {
     }
     // 可选函数，用于初始化update数据
     const handleInitUpdateData = (data) => {
+      // 设置选中父菜单，顶级需要设置为 null
+      setTreeCurrent(data.parentId || null)
       return data
+    }
+    // 打开添加弹框做一些操作
+    const handleInitAddData = () => {
+      setTreeCurrent(null)
+    }
+
+    // 设置当前选中的树节点
+    const setTreeCurrent = (nodeId) => {
+      treeRef.value && treeRef.value.setCurrentKey(nodeId, true)
     }
 
     const useStopStatusList = constDataToArray(useStopStatusData, null, true)
@@ -106,19 +128,27 @@ export default {
       submitBtnLoading,
       handleCloseDialog,
       handleSubmitForm,
-    } = useTableEditDialog({ props, emit, defaultForm, handleInitUpdateData, handleAddData, handleUpdateData })
+    } = useTableEditDialog({ props, emit, defaultForm, handleInitAddData, handleInitUpdateData, handleAddData, handleUpdateData })
 
     const treeData = computed(() => {
       return store.state.resource.departmentTree
     })
     const handleNodeClick = (item) => {
-      editForm.value.parentId = item.value
+      console.log('item', item)
+      editForm.value.parentId = item.id
       editForm.value.parentLabel = item.label
+    }
+    const handleClearParent = () => {
+      editForm.value.parentId = ''
+      editForm.value.parentLabel = ''
+      setTreeCurrent(null)
     }
 
     return {
+      treeRef,
       treeData,
       handleNodeClick,
+      handleClearParent,
 
       useStopStatusList,
       editFormRef,

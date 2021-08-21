@@ -70,13 +70,13 @@ export default {
         })
         const tree = list.map(x => {
           return {
-            parentId: x.parentId || 0,
-            value: x._id,
+            id: x._id,
             label: x.name,
+            parentId: x.parentId || 0,
           }
         })
         // 保存部门树
-        store.commit('resource/SET_DEPARTMENT_TREE', unlimitedForLayer(tree, 0, 'value'))
+        store.commit('resource/SET_DEPARTMENT_TREE', unlimitedForLayer(tree, 0))
         return unlimitedForLayer(data)
       })
     }
