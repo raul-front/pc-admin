@@ -1,8 +1,7 @@
 <template>
   <div class="component-flex-page login">
-    login page
-    <div>
-      <el-button @click="handleLogin">登录</el-button>
+    <div class="test-div">
+      <el-button type="primary" @click="handleLogin">登录</el-button>
     </div>
   </div>
 </template>
@@ -12,7 +11,6 @@ import storage from 'utils/storage'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
-// import { listLoginConfig, getLoginCode, loginByPhone, wxLogin, bindWebapp, checkBindMp } from 'api/account'
 import { login } from 'api/access'
 import { validatePhone } from 'lisa/utils/validate'
 import config from '@/config'
@@ -27,14 +25,11 @@ export default {
       // 清空toLogin标记
       storage.rmToLoginFlag()
       const path = storage.getLocationHref()
-      console.log('path', path)
       if (path) {
         storage.rmLocationHref()
         router.push(path)
       } else {
-        console.log('aaa')
-        // router.push({ name: 'Home' })
-        router.push('/')
+        router.push({ name: 'Home' })
       }
     }
 
@@ -64,126 +59,9 @@ export default {
       msgTime: 60,
       msgText: '获取验证码',
       isSendCode: false,
-
-      qrCodeUrl: '',
-
-      phoneConfig: {},
-      webappConfig: {},
-      mpConfig: {},
-      bindConfig: {},
     }
   },
-  computed: {
-    isClickSub () {
-      // if (this.msgText === '获取验证码' || !this.loginForm.phone || !this.loginForm.code) {
-      //   return true
-      // }
-      return false
-    },
-    routeName () {
-      return this.$route.name
-    },
-    routeQuery () {
-      return this.$route.query
-    },
-    isBindPage () {
-      return this.routeName === 'BindWechat'
-    },
-  },
-  watch: {
-    routeName () {
-      // 这里直接刷新二维码时，二维码不会更新，所以直接刷新页面
-      this.$router.go(0)
-    },
-    routeQuery () {
-      if (this.routeName === 'Login' && this.routeQuery.code) {
-        this.wxLogin(this.routeQuery.code)
-      }
-      if (this.routeName === 'BindWechat' && this.routeQuery.code) {
-        this.wxBind(this.routeQuery.code)
-      }
-    },
-  },
-  mounted () {
-    console.log('config', config)
-  },
   methods: {
-    loginHandle () {
-      // if (this.msgText === '获取验证码') {
-      //   return
-      // }
-      if (!this.checkoutPhone()) {
-        return
-      }
-      if (!this.checkoutCode()) {
-        return
-      }
-      const data = {
-        phone: this.loginForm.phone,
-        code: this.loginForm.code,
-      }
-      this.submitBtnLoading = true
-
-      loginByPhone(data).then(res => {
-        if (res) {
-          this.$store.commit('setLoginInfo', res)
-          if (res.stuff.should_bind_wehcat) {
-            if (this.mpConfig.isEnable) {
-              storage.setWebappConfig({
-                type: 'mp',
-              })
-              this.$router.push({
-                name: 'BindWechat',
-                query: { id: res.ID },
-              }).catch(() => {})
-              return
-            }
-            if (this.webappConfig.isEnable) {
-              storage.setWebappConfig({
-                type: 'webapp',
-                appid: this.webappConfig.appid,
-                redirectDomain: this.webappConfig.redirectDomain,
-              })
-              this.$router.push({
-                name: 'BindWechat',
-                query: { id: res.ID },
-              }).catch(() => {})
-              return
-            }
-          }
-          this.toHome()
-        }
-        this.submitBtnLoading = false
-      }).catch(() => {
-        this.submitBtnLoading = false
-      })
-    },
-
-    // 微信登录
-    wxLogin (code) {
-      wxLogin({ code: code }).then(res => {
-        if (res) {
-          this.$store.commit('setLoginInfo', res)
-          this.toHome()
-        }
-      }).catch(err => {
-        if (err === '无法查找到用户') {
-          this.$confirm('您还未绑定微信，请先使用手机登录，然后绑定微信', '提示', {
-            type: 'warning',
-            showCancelButton: false,
-          })
-        }
-      })
-    },
-
-    // 绑定微信
-    wxBind (code) {
-      bindWebapp(this.id, { code: code }).then(res => {
-        this.$message.success('绑定微信成功')
-        this.$store.commit('setBindInfo', res)
-        this.toHome()
-      })
-    },
 
     getCode () {
       if (!this.checkoutPhone()) {
@@ -237,6 +115,14 @@ export default {
 </script>
 
 <style lang="scss">
+.login{
+  .test-div{
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    @include flex-center();
+  }
+}
 .login{
   width: 100%;
   height: 100%;

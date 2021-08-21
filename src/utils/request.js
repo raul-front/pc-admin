@@ -26,7 +26,6 @@ const noAuthWhiteList = [
 // 请求拦截器
 request.interceptors.request.use(config => {
   const token = storage.getToken()
-  console.log('token', token)
   if (token) {
     config.headers.Token = token
   } else {
@@ -68,7 +67,6 @@ request.interceptors.response.use(response => {
 })
 
 export const toLogin = () => {
-  console.log('toLogin')
   if (storage.getToLoginFlag()) {
     return
   }
