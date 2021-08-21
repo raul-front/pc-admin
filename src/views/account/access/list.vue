@@ -10,7 +10,6 @@
       <template #table>
         <el-table border size="medium" :max-height="tableData.tableHeight"
           v-loading="tableData.tableLoading" :data="tableData.tableData"
-          style="width: 100%;margin-bottom: 20px;"
           row-key="id"
           default-expand-all
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}">

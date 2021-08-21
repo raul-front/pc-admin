@@ -4,12 +4,12 @@
       <template #handleUpRightButtons>
         <el-button type="primary" @click="openAddDialog">添加部门</el-button>
         <el-tooltip effect="light" content="刷新" placement="top">
-          <el-button type="info" icon="el-icon-refresh" @click="handleRefresh" :loading="tableData.tableLoading"></el-button>
+          <el-button type="info" icon="el-icon-refresh" @click="handleRefresh" :loading="tableLoading"></el-button>
         </el-tooltip>
       </template>
       <template #table>
-        <el-table border size="medium" :max-height="tableData.tableHeight"
-          v-loading="tableData.tableLoading" :data="tableData.tableData"
+        <el-table border size="medium" :max-height="tableHeight"
+          v-loading="tableLoading" :data="tableData"
           row-key="id"
           default-expand-all
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
@@ -39,12 +39,13 @@
 </template>
 
 <script>
-import { ElMessage } from 'element-plus'
-import { confirmExecHandle, filter, format, unlimitedForLayer } from 'lisa/utils/func'
-import useTableNoPage from 'lisa/hooks/useTableNoPage'
-import { listDepartment, deleteDepartment } from 'api/account'
-import EditDialog from './EditDialog.vue'
+import { computed, ref, reactive, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
+import { copy, confirmExecHandle } from 'lisa/utils/func'
+import useTableHeight from 'lisa/hooks/useTableHeight'
+import { deleteDepartment } from 'api/account'
+import EditDialog from './EditDialog.vue'
 
 export default {
   components: {
@@ -52,44 +53,48 @@ export default {
   },
   setup (props, { emit }) {
     const store = useStore()
-    const getDataHandle = async (query) => {
-      return listDepartment().then(res => {
-        const list = res.items || []
-        const data = list.map(x => {
-          return {
-            id: x._id,
-            name: x.name,
-            sort: x.sort,
-            parentId: x.parentId || 0,
-            status: x.status,
-            statusLabel: filter('useStopStatus', x.status),
-            remark: x.remark,
-            createdAt: format('second', x.createdAt),
-            updatedAt: format('second', x.updatedAt),
-          }
-        })
-        const tree = list.map(x => {
-          return {
-            parentId: x.parentId || 0,
-            value: x._id,
-            label: x.name,
-          }
-        })
-        // 保存部门树
-        store.commit('resource/SET_DEPARTMENT_TREE', unlimitedForLayer(tree, 0, 'value'))
-        return unlimitedForLayer(data)
-      })
+
+    const tableLoading = ref(false)
+    const tableData = computed(() => {
+      return store.state.resource.department
+    })
+    const oldTableHeight = computed(() => {
+      return store.state.resource.departmentTableHeight
+    })
+
+    // const
+    const editDialogData = reactive({
+      visible: false,
+      data: { action: 'add' },
+    })
+
+    const handleRefresh = () => {
+      getData()
     }
 
     const {
       componentFlexPageRef,
       componentFlexTableRef,
-      tableData,
-      handleRefresh,
-      openAddDialog,
-      openUpdateDialog,
-      editDialogData,
-    } = useTableNoPage(getDataHandle)
+      tableHeight,
+    } = useTableHeight()
+
+    console.log('height', oldTableHeight.value, tableHeight.value)
+
+    if (!oldTableHeight.value) {
+      store.commit('resource/SET_DEPARTMENT_TABLE_HEIGHT', tableHeight.value)
+    } else {
+      tableHeight.value = oldTableHeight.value
+    }
+
+    onMounted(() => {
+      getData()
+    })
+    const getData = () => {
+      tableLoading.value = true
+      store.dispatch('resource/syncDepartment').finally(() => {
+        tableLoading.value = false
+      })
+    }
 
     const handleDeleteConfirm = (item) => {
       if (item.children.length) {
@@ -104,17 +109,28 @@ export default {
       })
     }
 
+    const openAddDialog = () => {
+      editDialogData.data = { action: 'add' }
+      editDialogData.visible = true
+    }
+    const openUpdateDialog = (item) => {
+      editDialogData.data = copy(item)
+      editDialogData.visible = true
+    }
+
     return {
+      tableData,
+      tableLoading,
+
       componentFlexPageRef,
       componentFlexTableRef,
-      tableData,
+      tableHeight,
       handleRefresh,
-
-      handleDeleteConfirm,
 
       openAddDialog,
       openUpdateDialog,
       editDialogData,
+      handleDeleteConfirm,
     }
   },
 }

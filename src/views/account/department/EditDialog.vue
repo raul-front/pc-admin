@@ -4,8 +4,8 @@
       <el-form-item label="部门名称：" prop="name">
         <el-input v-model.trim="editForm.name" placeholder="请填写部门名称"></el-input>
       </el-form-item>
-      <el-form-item label="上级部门：" prop="parentId">
-        <el-select v-model="editForm.parentId" placeholder="请选择">
+      <el-form-item label="上级部门：" prop="parentLabel">
+        <el-select v-model="editForm.parentLabel" placeholder="请选择">
           <el-option value="null">
             <el-tree :data="treeData" @node-click="handleNodeClick"></el-tree>
           </el-option>
@@ -69,11 +69,25 @@ export default {
       ],
     }
 
-    const handleAddData = (data) => {
+    const handleAddData = (form) => {
       // 这里传过来的是form数据，可以重新组装
+      const data = {
+        name: form.name,
+        parentId: form.parentId || null,
+        sort: form.sort,
+        status: form.status,
+        remark: form.remark,
+      }
       return addDepartment(data)
     }
-    const handleUpdateData = (id, data) => {
+    const handleUpdateData = (id, form) => {
+      const data = {
+        name: form.name,
+        parentId: form.parentId || null,
+        sort: form.sort,
+        status: form.status,
+        remark: form.remark,
+      }
       return updateDepartment(id, data)
     }
     // 可选函数，用于初始化update数据
