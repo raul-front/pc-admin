@@ -28,8 +28,6 @@ export default {
       component: () => import('@/views/account/access/index.vue'),
       children: [
         { path: '', name: 'Account_Access', component: () => import('@/views/account/access/list.vue'), meta: { isfirstPage: true, showIntro: true, title: '权限' } },
-        { path: 'add', name: 'Account_Access_Add', component: () => import('@/views/account/access/edit.vue'), meta: { title: '新增权限' } },
-        { path: 'update/:id', name: 'Account_Access_Update', component: () => import('@/views/account/access/edit.vue'), meta: { title: '修改权限' } },
       ],
     },
   ],
