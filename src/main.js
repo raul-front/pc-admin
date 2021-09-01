@@ -8,8 +8,8 @@ import installElementPlus from './plugins/element-plus.js'
 import installDirectives from './directive/index.js'
 import 'styles/index.scss'
 
-// import Mock from './mock'
-// Mock.bootstrap()
+import Mock from './mock'
+Mock.bootstrap()
 
 const app = createApp(App)
 app.use(store).use(router).use(globalComponent)
